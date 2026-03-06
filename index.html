@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/lijin/Downloads/index_6.html -->
+<!-- saved from url=(0045)file:///C:/Users/lijin/Downloads/index_7.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -142,11 +142,13 @@ select option{background:#1a1612}
 .card{position:relative;background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px 18px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;animation:slideIn .3s ease both}
 @keyframes slideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
-.card.me::before{background:linear-gradient(to bottom,var(--moss),transparent)}
-.card.hus::before{background:linear-gradient(to bottom,var(--ice),transparent)}
+.card.wife::before{background:linear-gradient(to bottom,var(--moss),transparent)}
+.card.husband::before{background:linear-gradient(to bottom,var(--ice),transparent)}
+.card.ipad::before{background:linear-gradient(to bottom,var(--gold),transparent)}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:1px;margin-bottom:10px}
 .bme{background:var(--mossS);color:var(--green);border:1px solid rgba(78,96,64,.4)}
 .bhus{background:var(--iceS);color:var(--ice);border:1px solid rgba(122,180,196,.25)}
+.bipad{background:var(--goldS);color:var(--gold);border:1px solid rgba(196,158,74,.3)}
 .card-title{font-family:'Georgia',serif;font-size:18px;color:var(--text);margin-bottom:4px;line-height:1.25}
 .card-meta{font-size:10px;color:var(--dim);margin-bottom:8px}
 .card-desc{font-size:12px;color:var(--muted);line-height:1.65}
@@ -174,6 +176,7 @@ select option{background:#1a1612}
 .bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
 .bfme{background:linear-gradient(to right,var(--moss),var(--green))}
 .bfhus{background:linear-gradient(to right,var(--ice),#9dd4e0)}
+.bfipad{background:linear-gradient(to right,var(--gold),#e0c87a)}
 .bar-c{font-size:11px;color:var(--dim)}
 
 .exp-block{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:18px;margin-bottom:14px}
@@ -202,7 +205,7 @@ select option{background:#1a1612}
 <div id="offline-banner" style="display:none;background:#8c4e30;color:#f0ebe0;text-align:center;font-size:11px;padding:6px;font-family:Menlo,monospace;letter-spacing:1px;">
   ✈️ OFFLINE MODE — all your data is saved locally
 </div>
-<div id="app"><div class="header"><div class="header-grid"></div><svg class="header-mtns" viewbox="0 0 430 68" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none"><polygon points="0,68 60,18 110,38 175,4 230,24 285,0 335,14 390,6 430,16 430,68" fill="white"></polygon><polygon points="0,68 40,34 85,51 140,24 200,44 255,16 310,31 360,12 430,26 430,68" fill="white" opacity="0.5"></polygon></svg><div class="stamp">Patagonia · Chile · 5D4N</div><div class="h-title">Torres del Paine<em>Trek Journal</em></div><div class="prog"><div class="prog-fill" style="width: 0%;"></div></div><div class="h-stats"><div class="stat"><span class="stat-n">0</span><span class="stat-l">Moments</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Days</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Clips</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Photos</span></div></div></div><nav class="nav"><button class="nav-btn on">✏️ Log</button><button class="nav-btn">🗓 Journey</button><button class="nav-btn">📊 Stats</button><button class="nav-btn">🎬 Export</button><button class="nav-btn">🎥 Video</button><button class="nav-btn">🧪 TDD</button></nav><div class="scroll"><div class="field"><label class="lbl">Who's logging?</label><div class="tog-row"><button class="tog on" data-author="Me">👩 Me</button><button class="tog" data-author="Husband">👨 Husband</button></div></div><div class="field"><label class="lbl">Moment title *</label><input type="text" id="f-title" placeholder="e.g. First glimpse of the towers…"></div><div class="field"><label class="lbl">Location</label><select id="f-location"><option value="">Select location…</option><option value="Mirador Las Torres">Mirador Las Torres</option><option value="Valle del Francés">Valle del Francés</option><option value="Grey Glacier">Grey Glacier</option><option value="Lago Pehoé">Lago Pehoé</option><option value="Valle del Ascencio">Valle del Ascencio</option><option value="Lago Grey">Lago Grey</option><option value="Campamento Italiano">Campamento Italiano</option><option value="Mirador Británico">Mirador Británico</option><option value="Campamento Torres">Campamento Torres</option><option value="Base Camp O">Base Camp O</option><option value="Paso John Gardner">Paso John Gardner</option><option value="Other">Other</option><option value="Other">✏️ Enter custom location…</option></select><input type="text" id="f-location-custom" placeholder="Type your location…" style="margin-top: 8px; display: none;"></div><div class="field"><label class="lbl">Mood</label><div class="mood-grid"><button class="mood-chip" data-mood="😍">😍<span>Awestruck</span></button><button class="mood-chip" data-mood="🥹">🥹<span>Moved</span></button><button class="mood-chip on" data-mood="😊">😊<span>Happy</span></button><button class="mood-chip" data-mood="💪">💪<span>Strong</span></button><button class="mood-chip" data-mood="🤩">🤩<span>Elated</span></button><button class="mood-chip" data-mood="😌">😌<span>Peaceful</span></button><button class="mood-chip" data-mood="🥶">🥶<span>Freezing</span></button><button class="mood-chip" data-mood="😤">😤<span>Determined</span></button><button class="mood-chip" data-mood="😰">😰<span>Exhausted</span></button><button class="mood-chip" data-mood="🌟">🌟<span>Magical</span></button></div></div><div class="field"><label class="lbl">Description / Narration<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— speak 🎤 or type</span></label><div class="voice-row"><textarea id="desc-textarea" placeholder="What happened? What did you feel? Speak in Mandarin → tap 🌐 to translate to English…"></textarea><div class="voice-col"><button id="voice-btn" class="voice-btn" title="Speak in Mandarin">🎤</button><button id="translate-btn" class="translate-btn" title="Translate to English" disabled="">🌐</button></div></div><div id="voice-status" class="voice-status">🎤 Tap mic to speak in Mandarin · 🌐 to translate</div><div id="voice-raw" class="voice-raw"></div></div><div class="field"><label class="lbl">📹 iPad video clip filename</label><input type="text" id="f-clip" placeholder="e.g. IMG_0042.MOV"><div class="hint">Note the filename from iPad Photos so the export script links each moment to the right clip.</div></div><div class="field"><label class="lbl">📸 Photos &amp; 🎬 Videos<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— tap + to add multiple</span></label><div id="media-grid" class="media-grid"><div class="media-add">📷</div></div><input type="file" accept="image/*,video/*" multiple="true" style="display: none;"></div><div id="log-error"></div><button class="btn btn-p">✦ Save this moment</button></div></div>
+<div id="app"><div class="header"><div class="header-grid"></div><svg class="header-mtns" viewbox="0 0 430 68" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none"><polygon points="0,68 60,18 110,38 175,4 230,24 285,0 335,14 390,6 430,16 430,68" fill="white"></polygon><polygon points="0,68 40,34 85,51 140,24 200,44 255,16 310,31 360,12 430,26 430,68" fill="white" opacity="0.5"></polygon></svg><div class="stamp">Patagonia · Chile · 5D4N</div><div class="h-title">Torres del Paine<em>Trek Journal</em></div><div class="prog"><div class="prog-fill" style="width: 0%;"></div></div><div class="h-stats"><div class="stat"><span class="stat-n">0</span><span class="stat-l">Moments</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Days</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Clips</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Photos</span></div></div></div><nav class="nav"><button class="nav-btn on">✏️ Log</button><button class="nav-btn">🗓 Journey</button><button class="nav-btn">📊 Stats</button><button class="nav-btn">🎬 Export</button><button class="nav-btn">🎥 Video</button><button class="nav-btn">🧪 TDD</button></nav><div class="scroll"><div class="field"><label class="lbl">Who's logging?</label><div class="tog-row"><button class="tog" data-author="Me">👩 Me</button><button class="tog" data-author="Husband">👨 Husband</button></div></div><div class="field"><label class="lbl">Moment title *</label><input type="text" id="f-title" placeholder="e.g. First glimpse of the towers…"></div><div class="field"><label class="lbl">Location</label><select id="f-location"><option value="">Select location…</option><option value="Mirador Las Torres">Mirador Las Torres</option><option value="Valle del Francés">Valle del Francés</option><option value="Grey Glacier">Grey Glacier</option><option value="Lago Pehoé">Lago Pehoé</option><option value="Valle del Ascencio">Valle del Ascencio</option><option value="Lago Grey">Lago Grey</option><option value="Campamento Italiano">Campamento Italiano</option><option value="Mirador Británico">Mirador Británico</option><option value="Campamento Torres">Campamento Torres</option><option value="Base Camp O">Base Camp O</option><option value="Paso John Gardner">Paso John Gardner</option><option value="Other">Other</option><option value="Other">✏️ Enter custom location…</option></select><input type="text" id="f-location-custom" placeholder="Type your location…" style="margin-top: 8px; display: none;"></div><div class="field"><label class="lbl">Mood</label><div class="mood-grid"><button class="mood-chip" data-mood="😍">😍<span>Awestruck</span></button><button class="mood-chip" data-mood="🥹">🥹<span>Moved</span></button><button class="mood-chip on" data-mood="😊">😊<span>Happy</span></button><button class="mood-chip" data-mood="💪">💪<span>Strong</span></button><button class="mood-chip" data-mood="🤩">🤩<span>Elated</span></button><button class="mood-chip" data-mood="😌">😌<span>Peaceful</span></button><button class="mood-chip" data-mood="🥶">🥶<span>Freezing</span></button><button class="mood-chip" data-mood="😤">😤<span>Determined</span></button><button class="mood-chip" data-mood="😰">😰<span>Exhausted</span></button><button class="mood-chip" data-mood="🌟">🌟<span>Magical</span></button></div></div><div class="field"><label class="lbl">Description / Narration<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— speak 🎤 or type</span></label><div class="voice-row"><textarea id="desc-textarea" placeholder="What happened? What did you feel? Speak in Mandarin → tap 🌐 to translate to English…"></textarea><div class="voice-col"><button id="voice-btn" class="voice-btn" title="Speak in Mandarin">🎤</button><button id="translate-btn" class="translate-btn" title="Translate to English" disabled="">🌐</button></div></div><div id="voice-status" class="voice-status">🎤 Tap mic to speak in Mandarin · 🌐 to translate</div><div id="voice-raw" class="voice-raw"></div></div><div class="field"><label class="lbl">📹 iPad video clip filename</label><input type="text" id="f-clip" placeholder="e.g. IMG_0042.MOV"><div class="hint">Note the filename from iPad Photos so the export script links each moment to the right clip.</div></div><div class="field"><label class="lbl">📸 Photos &amp; 🎬 Videos<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— tap + to add multiple</span></label><div id="media-grid" class="media-grid"><div class="media-add">📷</div></div><input type="file" accept="image/*,video/*" multiple="true" style="display: none;"></div><div id="log-error"></div><button class="btn btn-p">✦ Save this moment</button></div></div>
 <script>
   window.addEventListener('online',  ()=>document.getElementById('offline-banner').style.display='none');
   window.addEventListener('offline', ()=>document.getElementById('offline-banner').style.display='block');
@@ -392,6 +395,11 @@ function startVoice() {
 //  STATE — no full re-render on text input!
 // ══════════════════════════════════════════
 const LOCATIONS=["Mirador Las Torres","Valle del Francés","Grey Glacier","Lago Pehoé","Valle del Ascencio","Lago Grey","Campamento Italiano","Mirador Británico","Campamento Torres","Base Camp O","Paso John Gardner","Other"];
+const AUTHORS=[
+  {id:"wife",   label:"👩 My Phone",      short:"My Phone"},
+  {id:"husband",label:"👨 Husband Phone", short:"Husband"},
+  {id:"ipad",   label:"📱 iPad",          short:"iPad"},
+];
 const MOODS=[{e:"😍",l:"Awestruck"},{e:"🥹",l:"Moved"},{e:"😊",l:"Happy"},{e:"💪",l:"Strong"},{e:"🤩",l:"Elated"},{e:"😌",l:"Peaceful"},{e:"🥶",l:"Freezing"},{e:"😤",l:"Determined"},{e:"😰",l:"Exhausted"},{e:"🌟",l:"Magical"}];
 
 let entries = [];
@@ -479,7 +487,7 @@ function getFormValues(){
       return (sel||{}).value||"";
     })(),
     mood: document.querySelector(".mood-chip.on")?document.querySelector(".mood-chip.on").dataset.mood:"😊",
-    author: document.querySelector(".tog.on")?document.querySelector(".tog.on").dataset.author:"Me",
+    author: document.querySelector(".tog.on")?document.querySelector(".tog.on").dataset.author:"wife",
     videoClip: (document.getElementById("f-clip")||{}).value||"",
     photo: mediaFiles.find(m=>m.type==="image")?.data||null
   };
@@ -556,7 +564,7 @@ function renderShell(){
 // ══════════════════════════════════════════
 let logMounted = false;
 let currentMood = "😊";
-let currentAuthor = "Me";
+let currentAuthor = "wife";
 let logError = "";
 
 function renderLog(){
@@ -753,7 +761,8 @@ function renderJourney(){
   });
   wrap.appendChild(h("div",{class:"search-wrap"},h("span",{class:"search-ico"},"🔍"),searchInput));
   wrap.appendChild(h("div",{class:"filter-row"},
-    ...["","Me","Husband"].map(a=>h("button",{class:`fchip${filterAuthor===a?" on":""}`,onClick:()=>{filterAuthor=a;setTab("journey");}},a||"All"))
+    h("button",{class:`fchip${filterAuthor===""?" on":""}`,onClick:()=>{filterAuthor="";setTab("journey");}},"All"),
+    ...AUTHORS.map(a=>h("button",{class:`fchip${filterAuthor===a.id?" on":""}`,onClick:()=>{filterAuthor=a.id;setTab("journey");}},a.label))
   ));
   wrap.appendChild(buildCards("",filterAuthor));
   return wrap;
@@ -771,8 +780,12 @@ function buildCards(search, author){
         h("div",{class:"day-lbl"},h("span",{class:"day-num"},"Day "+g.dayNumber+" "),formatDate(g.entries[0].timestamp))
       );
       g.entries.forEach((e,i)=>{
-        const card=h("div",{class:`card ${e.author==="Me"?"me":"hus"}`,style:{animationDelay:(i*0.04)+"s"}},
-          h("span",{class:`badge ${e.author==="Me"?"bme":"bhus"}`},e.author==="Me"?"👩 Me":"👨 Husband"),
+        const card=h("div",{class:`card ${e.author==="wife"?"wife":e.author==="ipad"?"ipad":"husband"}`,style:{animationDelay:(i*0.04)+"s"}},
+          (()=>{
+            const a = AUTHORS.find(x=>x.id===e.author) || {label:e.author,id:e.author};
+            const cls = e.author==="wife"?"bme":e.author==="ipad"?"bipad":"bhus";
+            return h("span",{class:`badge ${cls}`},a.label);
+          })(),
           h("div",{class:"card-title"},e.mood+" "+e.title),
           h("div",{class:"card-meta"},formatTime(e.timestamp)+(e.location?" · 📍 "+e.location:"")),
           e.description?h("div",{class:"card-desc"},e.description):null,
@@ -823,8 +836,8 @@ function renderStats(){
     h("div",{class:"author-bar"},
       h("h4",null,"Moments by Explorer"),
       ...Object.entries(s.byAuthor).map(([name,count])=>h("div",{class:"bar-row"},
-        h("span",{class:"bar-name"},name==="Me"?"👩 Me":"👨 Husband"),
-        h("div",{class:"bar-track"},h("div",{class:`bar-fill ${name==="Me"?"bfme":"bfhus"}`,style:{width:((count/s.total)*100)+"%"}})),
+        h("span",{class:"bar-name",style:{width:"90px"}},(AUTHORS.find(x=>x.id===name)||{label:name}).label),
+        h("div",{class:"bar-track"},h("div",{class:`bar-fill ${name==="wife"?"bfme":name==="ipad"?"bfipad":"bfhus"}`,style:{width:((count/s.total)*100)+"%"}})),
         h("span",{class:"bar-c"},count)
       ))
     )
