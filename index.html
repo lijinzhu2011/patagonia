@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/lijin/Downloads/index_5.html -->
+<!-- saved from url=(0045)file:///C:/Users/lijin/Downloads/index_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -7,8 +7,34 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Trek Journal">
   <title>Torres del Paine — Trek Journal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link href="./index_files/css2" rel="stylesheet">
+  <style>
+    /* iOS system fonts — beautiful, offline, zero latency */
+  </style>
+  <script>
+  // Register Service Worker for full offline support
+  if('serviceWorker' in navigator){
+    const swCode = `
+const CACHE = 'ptj-v1';
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['/patagonia/'])));
+  self.skipWaiting();
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
+  self.clients.claim();
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+    const clone = res.clone();
+    caches.open(CACHE).then(c => c.put(e.request, clone));
+    return res;
+  }).catch(() => caches.match('/'))));
+});`;
+    const blob = new Blob([swCode], {type:'application/javascript'});
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).catch(()=>{});
+  }
+  </script>
   <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -19,7 +45,7 @@
   --green:#7aab62;--rust:#8c4e30;
 }
 html{font-size:15px;-webkit-text-size-adjust:100%}
-body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);min-height:100dvh;-webkit-tap-highlight-color:transparent}
+body{font-family:'Menlo','Monaco','Courier New',monospace;background:var(--bg);color:var(--text);min-height:100dvh;-webkit-tap-highlight-color:transparent}
 .app{max-width:430px;margin:0 auto;min-height:100dvh}
 
 .header{position:relative;overflow:hidden;padding:52px 24px 28px;background:linear-gradient(175deg,#201c14 0%,#0f0d0a 55%,#111810 100%);border-bottom:1px solid var(--borderG)}
@@ -27,18 +53,18 @@ body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);min-
 .header-mtns{position:absolute;bottom:-1px;left:0;right:0;height:68px;opacity:.08}
 .stamp{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;border:1px solid rgba(196,158,74,0.3);padding:4px 10px;border-radius:2px}
 .stamp::before{content:'◆';font-size:6px}
-.h-title{font-family:'Libre Baskerville',serif;font-size:32px;line-height:1.08;color:var(--text);letter-spacing:-.5px}
+.h-title{font-family:'Georgia',serif;font-size:32px;line-height:1.08;color:var(--text);letter-spacing:-.5px}
 .h-title em{font-style:italic;color:var(--ice);display:block;font-size:26px}
 .h-stats{display:flex;margin-top:16px;border:1px solid var(--border);border-radius:4px;overflow:hidden}
 .stat{flex:1;padding:9px 8px;text-align:center;border-right:1px solid var(--border);background:rgba(0,0,0,.2)}
 .stat:last-child{border-right:none}
-.stat-n{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--gold);display:block}
+.stat-n{font-family:'Georgia',serif;font-size:18px;color:var(--gold);display:block}
 .stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
 .prog{height:2px;background:rgba(255,255,255,.06);margin:14px 0 0;border-radius:1px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--ice));border-radius:1px;transition:width .5s}
 
 .nav{display:flex;background:rgba(0,0,0,.5);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.nav-btn{flex:1;padding:13px 2px 11px;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:none;border-bottom:2px solid transparent;color:var(--dim);cursor:pointer;font-family:'DM Mono',monospace;transition:color .2s,border-color .2s}
+.nav-btn{flex:1;padding:13px 2px 11px;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:none;border-bottom:2px solid transparent;color:var(--dim);cursor:pointer;font-family:'Menlo','Monaco','Courier New',monospace;transition:color .2s,border-color .2s}
 .nav-btn.on{color:var(--gold);border-bottom-color:var(--gold)}
 
 .scroll{padding:22px 18px 120px}
@@ -48,19 +74,19 @@ body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);min-
 .hint{font-size:10px;color:var(--dim);margin-top:6px;line-height:1.5;font-style:italic}
 
 /* KEY FIX: inputs are never replaced in DOM — only their values update */
-input[type=text],textarea,select{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:13px 14px;color:var(--text);font-size:16px;font-family:'DM Mono',monospace;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+input[type=text],textarea,select{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:13px 14px;color:var(--text);font-size:16px;font-family:'Menlo','Monaco','Courier New',monospace;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 input[type=text]:focus,textarea:focus{border-color:var(--ice);background:rgba(122,180,196,.05)}
 textarea{resize:vertical;min-height:88px;line-height:1.6}
 select{color:var(--text);cursor:pointer;font-size:14px}
 select option{background:#1a1612}
 
 .tog-row{display:flex;gap:8px}
-.tog{flex:1;padding:12px 8px;background:var(--surf);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-align:center}
+.tog{flex:1;padding:12px 8px;background:var(--surf);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Menlo','Monaco','Courier New',monospace;transition:all .15s;text-align:center}
 .tog.on{background:var(--goldS);border-color:var(--borderG);color:var(--gold)}
 
 .mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .mood-chip{aspect-ratio:1;background:var(--surf);border:1px solid var(--border);border-radius:4px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;transition:all .15s}
-.mood-chip span{font-size:8px;color:var(--dim);font-family:'DM Mono',monospace}
+.mood-chip span{font-size:8px;color:var(--dim);font-family:'Menlo','Monaco','Courier New',monospace}
 .mood-chip.on{background:var(--goldS);border-color:var(--borderG);transform:scale(1.08);box-shadow:0 0 14px rgba(196,158,74,.25)}
 .mood-chip.on span{color:var(--gold)}
 
@@ -91,28 +117,28 @@ select option{background:#1a1612}
 
 .err{background:rgba(140,78,48,.2);border:1px solid rgba(140,78,48,.4);color:#d4886a;border-radius:3px;padding:11px 14px;font-size:12px;margin-bottom:16px}
 
-.btn{display:block;width:100%;padding:15px;border-radius:3px;border:none;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;font-family:'DM Mono',monospace;transition:all .2s;text-align:center;margin-bottom:8px}
+.btn{display:block;width:100%;padding:15px;border-radius:3px;border:none;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;font-family:'Menlo','Monaco','Courier New',monospace;transition:all .2s;text-align:center;margin-bottom:8px}
 .btn:last-child{margin-bottom:0}
 .btn-p{background:linear-gradient(135deg,#3a4c2c,#4e6040,#3a5a52);color:rgba(240,235,224,.95)}
 .btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .btn-g{background:transparent;color:var(--gold);border:1px solid var(--borderG)}
 .btn-g:hover{background:var(--goldS)}
 .btn-i{background:var(--iceS);color:var(--ice);border:1px solid rgba(122,180,196,.25)}
-.btn-d{background:transparent;color:rgba(220,120,90,.65);border:1px solid rgba(220,120,90,.2);font-size:9px;padding:9px;margin-top:10px;width:100%;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase}
+.btn-d{background:transparent;color:rgba(220,120,90,.65);border:1px solid rgba(220,120,90,.2);font-size:9px;padding:9px;margin-top:10px;width:100%;border-radius:3px;cursor:pointer;font-family:'Menlo','Monaco','Courier New',monospace;letter-spacing:2px;text-transform:uppercase}
 
 .search-wrap{position:relative;margin-bottom:16px}
 .search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
-.search-in{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:11px 14px 11px 38px;color:var(--text);font-size:16px;font-family:'DM Mono',monospace;outline:none;-webkit-appearance:none}
+.search-in{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:11px 14px 11px 38px;color:var(--text);font-size:16px;font-family:'Menlo','Monaco','Courier New',monospace;outline:none;-webkit-appearance:none}
 .search-in:focus{border-color:var(--ice)}
 .filter-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.fchip{font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:2px;background:var(--surf);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-transform:uppercase}
+.fchip{font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:2px;background:var(--surf);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-family:'Menlo','Monaco','Courier New',monospace;transition:all .15s;text-transform:uppercase}
 .fchip.on{background:var(--iceS);border-color:rgba(122,180,196,.3);color:var(--ice)}
 
 .day-grp{margin-bottom:28px}
-.day-lbl{font-family:'Libre Baskerville',serif;font-size:13px;font-style:italic;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.day-lbl{font-family:'Georgia',serif;font-size:13px;font-style:italic;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .day-lbl::before{content:'';flex:none;width:6px;height:6px;background:var(--gold);border-radius:50%}
 .day-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--borderG),transparent)}
-.day-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase}
+.day-num{font-family:'Menlo','Monaco','Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase}
 .card{position:relative;background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px 18px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;animation:slideIn .3s ease both}
 @keyframes slideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
@@ -121,7 +147,7 @@ select option{background:#1a1612}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:1px;margin-bottom:10px}
 .bme{background:var(--mossS);color:var(--green);border:1px solid rgba(78,96,64,.4)}
 .bhus{background:var(--iceS);color:var(--ice);border:1px solid rgba(122,180,196,.25)}
-.card-title{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--text);margin-bottom:4px;line-height:1.25}
+.card-title{font-family:'Georgia',serif;font-size:18px;color:var(--text);margin-bottom:4px;line-height:1.25}
 .card-meta{font-size:10px;color:var(--dim);margin-bottom:8px}
 .card-desc{font-size:12px;color:var(--muted);line-height:1.65}
 .card-clip{font-size:10px;color:rgba(122,180,196,.55);margin-top:8px;font-style:italic}
@@ -133,12 +159,12 @@ select option{background:#1a1612}
 
 .empty{text-align:center;padding:80px 20px 40px}
 .empty-ico{font-size:48px;margin-bottom:16px;opacity:.4}
-.empty-t{font-family:'Libre Baskerville',serif;font-style:italic;font-size:18px;color:var(--muted);margin-bottom:8px}
+.empty-t{font-family:'Georgia',serif;font-style:italic;font-size:18px;color:var(--muted);margin-bottom:8px}
 .empty-s{font-size:11px;color:var(--dim);line-height:1.6}
 
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat-box{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px 14px;text-align:center}
-.sbn{font-family:'Libre Baskerville',serif;font-size:28px;color:var(--gold);display:block}
+.sbn{font-family:'Georgia',serif;font-size:28px;color:var(--gold);display:block}
 .sbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
 .author-bar{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:10px}
 .author-bar h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
@@ -151,19 +177,19 @@ select option{background:#1a1612}
 .bar-c{font-size:11px;color:var(--dim)}
 
 .exp-block{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:18px;margin-bottom:14px}
-.exp-block h3{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--text);margin-bottom:4px}
+.exp-block h3{font-family:'Georgia',serif;font-size:18px;color:var(--text);margin-bottom:4px}
 .exp-block p{font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:14px}
-.code-box{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:14px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ice);white-space:pre-wrap;max-height:220px;overflow-y:auto;line-height:1.7;margin-top:10px}
+.code-box{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:14px;font-family:'Menlo','Monaco','Courier New',monospace;font-size:10px;color:var(--ice);white-space:pre-wrap;max-height:220px;overflow-y:auto;line-height:1.7;margin-top:10px}
 .tip{background:var(--goldS);border:1px solid rgba(196,158,74,.2);border-radius:3px;padding:12px 14px;font-size:11px;color:rgba(240,235,224,.6);line-height:1.6;margin-top:4px}
 
-.tdd-h{font-family:'Libre Baskerville',serif;font-size:26px;color:var(--text);margin-bottom:4px}
+.tdd-h{font-family:'Georgia',serif;font-size:26px;color:var(--text);margin-bottom:4px}
 .tdd-s{font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:20px}
 .t-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:3px;margin-bottom:6px;font-size:11px;animation:slideIn .15s ease both}
 .t-pass{background:rgba(78,96,64,.2);border:1px solid rgba(78,96,64,.35);color:#9cbd72}
 .t-fail{background:rgba(140,78,48,.2);border:1px solid rgba(140,78,48,.35);color:#d4886a}
 .t-name{font-weight:500;line-height:1.4}
 .t-err{font-size:10px;opacity:.7;margin-top:2px;font-style:italic}
-.tdd-sum{margin:16px 0;padding:14px;border-radius:3px;text-align:center;background:var(--goldS);border:1px solid var(--borderG);font-size:13px;color:var(--gold);font-family:'Libre Baskerville',serif}
+.tdd-sum{margin:16px 0;padding:14px;border-radius:3px;text-align:center;background:var(--goldS);border:1px solid var(--borderG);font-size:13px;color:var(--gold);font-family:'Georgia',serif}
 .cycle{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:18px;margin-top:20px}
 .cycle h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ice);margin-bottom:16px}
 .cy-row{display:flex;gap:12px;margin-bottom:12px;font-size:11px;color:var(--muted);line-height:1.6}
@@ -173,7 +199,15 @@ select option{background:#1a1612}
   </style>
 </head>
 <body>
+<div id="offline-banner" style="display:none;background:#8c4e30;color:#f0ebe0;text-align:center;font-size:11px;padding:6px;font-family:Menlo,monospace;letter-spacing:1px;">
+  ✈️ OFFLINE MODE — all your data is saved locally
+</div>
 <div id="app"><div class="header"><div class="header-grid"></div><svg class="header-mtns" viewbox="0 0 430 68" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none"><polygon points="0,68 60,18 110,38 175,4 230,24 285,0 335,14 390,6 430,16 430,68" fill="white"></polygon><polygon points="0,68 40,34 85,51 140,24 200,44 255,16 310,31 360,12 430,26 430,68" fill="white" opacity="0.5"></polygon></svg><div class="stamp">Patagonia · Chile · 5D4N</div><div class="h-title">Torres del Paine<em>Trek Journal</em></div><div class="prog"><div class="prog-fill" style="width: 0%;"></div></div><div class="h-stats"><div class="stat"><span class="stat-n">0</span><span class="stat-l">Moments</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Days</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Clips</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Photos</span></div></div></div><nav class="nav"><button class="nav-btn on">✏️ Log</button><button class="nav-btn">🗓 Journey</button><button class="nav-btn">📊 Stats</button><button class="nav-btn">🎬 Export</button><button class="nav-btn">🎥 Video</button><button class="nav-btn">🧪 TDD</button></nav><div class="scroll"><div class="field"><label class="lbl">Who's logging?</label><div class="tog-row"><button class="tog on" data-author="Me">👩 Me</button><button class="tog" data-author="Husband">👨 Husband</button></div></div><div class="field"><label class="lbl">Moment title *</label><input type="text" id="f-title" placeholder="e.g. First glimpse of the towers…"></div><div class="field"><label class="lbl">Location</label><select id="f-location"><option value="">Select location…</option><option value="Mirador Las Torres">Mirador Las Torres</option><option value="Valle del Francés">Valle del Francés</option><option value="Grey Glacier">Grey Glacier</option><option value="Lago Pehoé">Lago Pehoé</option><option value="Valle del Ascencio">Valle del Ascencio</option><option value="Lago Grey">Lago Grey</option><option value="Campamento Italiano">Campamento Italiano</option><option value="Mirador Británico">Mirador Británico</option><option value="Campamento Torres">Campamento Torres</option><option value="Base Camp O">Base Camp O</option><option value="Paso John Gardner">Paso John Gardner</option><option value="Other">Other</option><option value="Other">✏️ Enter custom location…</option></select><input type="text" id="f-location-custom" placeholder="Type your location…" style="margin-top: 8px; display: none;"></div><div class="field"><label class="lbl">Mood</label><div class="mood-grid"><button class="mood-chip" data-mood="😍">😍<span>Awestruck</span></button><button class="mood-chip" data-mood="🥹">🥹<span>Moved</span></button><button class="mood-chip on" data-mood="😊">😊<span>Happy</span></button><button class="mood-chip" data-mood="💪">💪<span>Strong</span></button><button class="mood-chip" data-mood="🤩">🤩<span>Elated</span></button><button class="mood-chip" data-mood="😌">😌<span>Peaceful</span></button><button class="mood-chip" data-mood="🥶">🥶<span>Freezing</span></button><button class="mood-chip" data-mood="😤">😤<span>Determined</span></button><button class="mood-chip" data-mood="😰">😰<span>Exhausted</span></button><button class="mood-chip" data-mood="🌟">🌟<span>Magical</span></button></div></div><div class="field"><label class="lbl">Description / Narration<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— speak 🎤 or type</span></label><div class="voice-row"><textarea id="desc-textarea" placeholder="What happened? What did you feel? Speak in Mandarin → tap 🌐 to translate to English…"></textarea><div class="voice-col"><button id="voice-btn" class="voice-btn" title="Speak in Mandarin">🎤</button><button id="translate-btn" class="translate-btn" title="Translate to English" disabled="">🌐</button></div></div><div id="voice-status" class="voice-status">🎤 Tap mic to speak in Mandarin · 🌐 to translate</div><div id="voice-raw" class="voice-raw"></div></div><div class="field"><label class="lbl">📹 iPad video clip filename</label><input type="text" id="f-clip" placeholder="e.g. IMG_0042.MOV"><div class="hint">Note the filename from iPad Photos so the export script links each moment to the right clip.</div></div><div class="field"><label class="lbl">📸 Photos &amp; 🎬 Videos<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— tap + to add multiple</span></label><div id="media-grid" class="media-grid"><div class="media-add">📷</div></div><input type="file" accept="image/*,video/*" multiple="true" style="display: none;"></div><div id="log-error"></div><button class="btn btn-p">✦ Save this moment</button></div></div>
+<script>
+  window.addEventListener('online',  ()=>document.getElementById('offline-banner').style.display='none');
+  window.addEventListener('offline', ()=>document.getElementById('offline-banner').style.display='block');
+  if(!navigator.onLine) document.getElementById('offline-banner').style.display='block';
+</script>
 
 <script>
 // ══════════════════════════════════════════
@@ -370,9 +404,68 @@ let mediaFiles = []; // [{type:"image"|"video", data:dataURL, name:filename}]
 // Form values live directly in DOM inputs — not in JS state
 // This is the KEY fix: we read from DOM, never replace input elements
 
-try { const s=localStorage.getItem("ptj_v4"); if(s) entries=JSON.parse(s); } catch(e){}
+// Triple storage: IndexedDB (primary) + localStorage + sessionStorage
+let db = null;
 
-function persist(arr){ entries=arr; try{localStorage.setItem("ptj_v4",JSON.stringify(arr));}catch(e){} renderShell(); }
+function openDB(){
+  return new Promise((resolve)=>{
+    try {
+      const req = indexedDB.open("PatagoniaJournal",1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore("entries",{keyPath:"id"});
+      req.onsuccess = e => { db=e.target.result; resolve(db); };
+      req.onerror = () => resolve(null);
+    } catch(e){ resolve(null); }
+  });
+}
+
+async function saveAllEntries(arr){
+  // Save to all 3 stores
+  const json = JSON.stringify(arr);
+  try { localStorage.setItem("ptj_v4", json); } catch(e){}
+  try { sessionStorage.setItem("ptj_v4", json); } catch(e){}
+  if(db){
+    try {
+      const tx = db.transaction("entries","readwrite");
+      const store = tx.objectStore("entries");
+      store.clear();
+      arr.forEach(e => store.put(e));
+    } catch(e){}
+  }
+}
+
+async function loadAllEntries(){
+  // Try IndexedDB first (most reliable on iOS)
+  if(db){
+    try {
+      return await new Promise((resolve)=>{
+        const tx = db.transaction("entries","readonly");
+        const req = tx.objectStore("entries").getAll();
+        req.onsuccess = e => {
+          const arr = e.target.result || [];
+          if(arr.length > 0){
+            // Sort by timestamp descending (newest first)
+            arr.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+            resolve(arr);
+          } else resolve(null);
+        };
+        req.onerror = () => resolve(null);
+      });
+    } catch(e){}
+  }
+  // Fallback to localStorage
+  try { const s=localStorage.getItem("ptj_v4"); if(s){ const p=JSON.parse(s); if(p.length) return p; } } catch(e){}
+  // Fallback to sessionStorage
+  try { const s=sessionStorage.getItem("ptj_v4"); if(s){ const p=JSON.parse(s); if(p.length) return p; } } catch(e){}
+  return [];
+}
+
+// Load entries on startup
+openDB().then(async()=>{
+  const loaded = await loadAllEntries();
+  if(loaded && loaded.length){ entries=loaded; renderShell(); }
+});
+
+function persist(arr){ entries=arr; saveAllEntries(arr); renderShell(); }
 function setTab(t){ tab=t; rawTranscript=""; renderShell(); }
 
 function getFormValues(){
@@ -625,7 +718,7 @@ function renderLog(){
       entry.photo=mediaFiles.find(m=>m.type==="image")?.data||null; // keep compat
       mediaFiles=[];
       entries=[entry,...entries];
-      try{localStorage.setItem("ptj_v4",JSON.stringify(entries));}catch(e){}
+      saveAllEntries(entries);
       // Reset form fields manually without re-rendering
       document.getElementById("f-title").value="";
       document.getElementById("desc-textarea").value="";
@@ -709,7 +802,7 @@ function buildCards(search, author){
             return grid;
           })()
         );
-        const delBtn=h("button",{class:"btn-d",onClick:()=>{entries=entries.filter(x=>x.id!==e.id);try{localStorage.setItem("ptj_v4",JSON.stringify(entries));}catch(ex){}renderShell();}},"🗑 Remove entry");
+        const delBtn=h("button",{class:"btn-d",onClick:()=>{entries=entries.filter(x=>x.id!==e.id);saveAllEntries(entries);renderShell();}},"🗑 Remove entry");
         card.appendChild(delBtn);
         grp.appendChild(card);
       });
