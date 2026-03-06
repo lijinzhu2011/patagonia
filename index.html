@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/lijin/Downloads/index_4.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Trek Journal">
+  <title>Torres del Paine — Trek Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link href="./index_files/css2" rel="stylesheet">
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0d0a;--surf:#1a1612;--raised:#222018;--border:rgba(255,255,255,0.07);
+  --borderG:rgba(196,158,74,0.35);--text:#f0ebe0;--muted:rgba(240,235,224,0.45);
+  --dim:rgba(240,235,224,0.22);--gold:#c49e4a;--goldS:rgba(196,158,74,0.14);
+  --ice:#7ab4c4;--iceS:rgba(122,180,196,0.12);--moss:#4e6040;--mossS:rgba(78,96,64,0.3);
+  --green:#7aab62;--rust:#8c4e30;
+}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);min-height:100dvh;-webkit-tap-highlight-color:transparent}
+.app{max-width:430px;margin:0 auto;min-height:100dvh}
+
+.header{position:relative;overflow:hidden;padding:52px 24px 28px;background:linear-gradient(175deg,#201c14 0%,#0f0d0a 55%,#111810 100%);border-bottom:1px solid var(--borderG)}
+.header-grid{position:absolute;inset:0;opacity:.03;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:32px 32px}
+.header-mtns{position:absolute;bottom:-1px;left:0;right:0;height:68px;opacity:.08}
+.stamp{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;border:1px solid rgba(196,158,74,0.3);padding:4px 10px;border-radius:2px}
+.stamp::before{content:'◆';font-size:6px}
+.h-title{font-family:'Libre Baskerville',serif;font-size:32px;line-height:1.08;color:var(--text);letter-spacing:-.5px}
+.h-title em{font-style:italic;color:var(--ice);display:block;font-size:26px}
+.h-stats{display:flex;margin-top:16px;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.stat{flex:1;padding:9px 8px;text-align:center;border-right:1px solid var(--border);background:rgba(0,0,0,.2)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--gold);display:block}
+.stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.prog{height:2px;background:rgba(255,255,255,.06);margin:14px 0 0;border-radius:1px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--ice));border-radius:1px;transition:width .5s}
+
+.nav{display:flex;background:rgba(0,0,0,.5);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nav-btn{flex:1;padding:13px 2px 11px;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:none;border-bottom:2px solid transparent;color:var(--dim);cursor:pointer;font-family:'DM Mono',monospace;transition:color .2s,border-color .2s}
+.nav-btn.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+.scroll{padding:22px 18px 120px}
+
+.field{margin-bottom:18px}
+.lbl{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:.9}
+.hint{font-size:10px;color:var(--dim);margin-top:6px;line-height:1.5;font-style:italic}
+
+/* KEY FIX: inputs are never replaced in DOM — only their values update */
+input[type=text],textarea,select{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:13px 14px;color:var(--text);font-size:16px;font-family:'DM Mono',monospace;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+input[type=text]:focus,textarea:focus{border-color:var(--ice);background:rgba(122,180,196,.05)}
+textarea{resize:vertical;min-height:88px;line-height:1.6}
+select{color:var(--text);cursor:pointer;font-size:14px}
+select option{background:#1a1612}
+
+.tog-row{display:flex;gap:8px}
+.tog{flex:1;padding:12px 8px;background:var(--surf);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-align:center}
+.tog.on{background:var(--goldS);border-color:var(--borderG);color:var(--gold)}
+
+.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.mood-chip{aspect-ratio:1;background:var(--surf);border:1px solid var(--border);border-radius:4px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;transition:all .15s}
+.mood-chip span{font-size:8px;color:var(--dim);font-family:'DM Mono',monospace}
+.mood-chip.on{background:var(--goldS);border-color:var(--borderG);transform:scale(1.08);box-shadow:0 0 14px rgba(196,158,74,.25)}
+.mood-chip.on span{color:var(--gold)}
+
+.photo-zone{border:1px dashed rgba(122,180,196,.25);border-radius:4px;padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--iceS)}
+.photo-zone:hover{border-color:var(--ice)}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.media-thumb{position:relative;aspect-ratio:1;border-radius:3px;overflow:hidden;background:#000}
+.media-thumb img{width:100%;height:100%;object-fit:contain;background:#111}
+.media-thumb video{width:100%;height:100%;object-fit:contain;background:#111}
+.media-thumb .rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;color:#fff;border-radius:50%;width:20px;height:20px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.media-thumb .vid-badge{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.6);color:var(--ice);font-size:9px;padding:2px 5px;border-radius:2px}
+.media-add{aspect-ratio:1;border:1px dashed rgba(122,180,196,.25);border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;background:var(--iceS);transition:all .2s}
+.media-add:hover{border-color:var(--ice)}
+
+/* VOICE BUTTON */
+.voice-row{display:flex;gap:8px;align-items:flex-start}
+.voice-row textarea{flex:1}
+.voice-col{display:flex;flex-direction:column;gap:6px;padding-top:2px}
+.voice-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(122,180,196,.3);background:var(--iceS);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.voice-btn.recording{background:rgba(220,60,60,.2);border-color:rgba(220,60,60,.5);animation:pulse 1s infinite}
+.voice-btn:disabled{opacity:.4;cursor:not-allowed}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,60,60,.4)}50%{box-shadow:0 0 0 8px rgba(220,60,60,0)}}
+.translate-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(196,158,74,.3);background:var(--goldS);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.translate-btn:disabled{opacity:.4;cursor:not-allowed}
+.voice-status{font-size:10px;color:var(--ice);margin-top:6px;line-height:1.4;font-style:italic;min-height:14px}
+.voice-raw{font-size:10px;color:var(--dim);margin-top:4px;line-height:1.4;font-style:italic;padding:6px 10px;background:rgba(0,0,0,.2);border-radius:3px;display:none}
+.voice-raw.show{display:block}
+
+.err{background:rgba(140,78,48,.2);border:1px solid rgba(140,78,48,.4);color:#d4886a;border-radius:3px;padding:11px 14px;font-size:12px;margin-bottom:16px}
+
+.btn{display:block;width:100%;padding:15px;border-radius:3px;border:none;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;font-family:'DM Mono',monospace;transition:all .2s;text-align:center;margin-bottom:8px}
+.btn:last-child{margin-bottom:0}
+.btn-p{background:linear-gradient(135deg,#3a4c2c,#4e6040,#3a5a52);color:rgba(240,235,224,.95)}
+.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--gold);border:1px solid var(--borderG)}
+.btn-g:hover{background:var(--goldS)}
+.btn-i{background:var(--iceS);color:var(--ice);border:1px solid rgba(122,180,196,.25)}
+.btn-d{background:transparent;color:rgba(220,120,90,.65);border:1px solid rgba(220,120,90,.2);font-size:9px;padding:9px;margin-top:10px;width:100%;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase}
+
+.search-wrap{position:relative;margin-bottom:16px}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
+.search-in{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:3px;padding:11px 14px 11px 38px;color:var(--text);font-size:16px;font-family:'DM Mono',monospace;outline:none;-webkit-appearance:none}
+.search-in:focus{border-color:var(--ice)}
+.filter-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.fchip{font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:2px;background:var(--surf);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-transform:uppercase}
+.fchip.on{background:var(--iceS);border-color:rgba(122,180,196,.3);color:var(--ice)}
+
+.day-grp{margin-bottom:28px}
+.day-lbl{font-family:'Libre Baskerville',serif;font-size:13px;font-style:italic;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.day-lbl::before{content:'';flex:none;width:6px;height:6px;background:var(--gold);border-radius:50%}
+.day-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--borderG),transparent)}
+.day-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase}
+.card{position:relative;background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px 18px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;animation:slideIn .3s ease both}
+@keyframes slideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.card.me::before{background:linear-gradient(to bottom,var(--moss),transparent)}
+.card.hus::before{background:linear-gradient(to bottom,var(--ice),transparent)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:1px;margin-bottom:10px}
+.bme{background:var(--mossS);color:var(--green);border:1px solid rgba(78,96,64,.4)}
+.bhus{background:var(--iceS);color:var(--ice);border:1px solid rgba(122,180,196,.25)}
+.card-title{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--text);margin-bottom:4px;line-height:1.25}
+.card-meta{font-size:10px;color:var(--dim);margin-bottom:8px}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.65}
+.card-clip{font-size:10px;color:rgba(122,180,196,.55);margin-top:8px;font-style:italic}
+.card-photo{width:100%;border-radius:3px;margin-top:8px;display:block;object-fit:contain;background:#111;max-height:360px}
+.card-video{width:100%;border-radius:3px;margin-top:8px;display:block;max-height:300px;background:#000}
+.card-media-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px}
+.card-media-grid img{width:100%;border-radius:3px;object-fit:contain;background:#111;aspect-ratio:1}
+.card-media-grid video{width:100%;border-radius:3px;background:#000;aspect-ratio:1}
+
+.empty{text-align:center;padding:80px 20px 40px}
+.empty-ico{font-size:48px;margin-bottom:16px;opacity:.4}
+.empty-t{font-family:'Libre Baskerville',serif;font-style:italic;font-size:18px;color:var(--muted);margin-bottom:8px}
+.empty-s{font-size:11px;color:var(--dim);line-height:1.6}
+
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.stat-box{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px 14px;text-align:center}
+.sbn{font-family:'Libre Baskerville',serif;font-size:28px;color:var(--gold);display:block}
+.sbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.author-bar{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:10px}
+.author-bar h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-name{font-size:11px;color:var(--muted);width:80px;flex-shrink:0}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.bfme{background:linear-gradient(to right,var(--moss),var(--green))}
+.bfhus{background:linear-gradient(to right,var(--ice),#9dd4e0)}
+.bar-c{font-size:11px;color:var(--dim)}
+
+.exp-block{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:18px;margin-bottom:14px}
+.exp-block h3{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--text);margin-bottom:4px}
+.exp-block p{font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:14px}
+.code-box{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:14px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ice);white-space:pre-wrap;max-height:220px;overflow-y:auto;line-height:1.7;margin-top:10px}
+.tip{background:var(--goldS);border:1px solid rgba(196,158,74,.2);border-radius:3px;padding:12px 14px;font-size:11px;color:rgba(240,235,224,.6);line-height:1.6;margin-top:4px}
+
+.tdd-h{font-family:'Libre Baskerville',serif;font-size:26px;color:var(--text);margin-bottom:4px}
+.tdd-s{font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:20px}
+.t-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:3px;margin-bottom:6px;font-size:11px;animation:slideIn .15s ease both}
+.t-pass{background:rgba(78,96,64,.2);border:1px solid rgba(78,96,64,.35);color:#9cbd72}
+.t-fail{background:rgba(140,78,48,.2);border:1px solid rgba(140,78,48,.35);color:#d4886a}
+.t-name{font-weight:500;line-height:1.4}
+.t-err{font-size:10px;opacity:.7;margin-top:2px;font-style:italic}
+.tdd-sum{margin:16px 0;padding:14px;border-radius:3px;text-align:center;background:var(--goldS);border:1px solid var(--borderG);font-size:13px;color:var(--gold);font-family:'Libre Baskerville',serif}
+.cycle{background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:18px;margin-top:20px}
+.cycle h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ice);margin-bottom:16px}
+.cy-row{display:flex;gap:12px;margin-bottom:12px;font-size:11px;color:var(--muted);line-height:1.6}
+.dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin-top:1px}
+.dr{background:#c0392b;color:#fff}.dg{background:#27ae60;color:#fff}.db{background:#1a6ebd;color:#fff}
+.hr{height:1px;background:var(--border);margin:16px 0}
+  </style>
+</head>
+<body>
+<div id="app"><div class="header"><div class="header-grid"></div><svg class="header-mtns" viewbox="0 0 430 68" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none"><polygon points="0,68 60,18 110,38 175,4 230,24 285,0 335,14 390,6 430,16 430,68" fill="white"></polygon><polygon points="0,68 40,34 85,51 140,24 200,44 255,16 310,31 360,12 430,26 430,68" fill="white" opacity="0.5"></polygon></svg><div class="stamp">Patagonia · Chile · 5D4N</div><div class="h-title">Torres del Paine<em>Trek Journal</em></div><div class="prog"><div class="prog-fill" style="width: 0%;"></div></div><div class="h-stats"><div class="stat"><span class="stat-n">0</span><span class="stat-l">Moments</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Days</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Clips</span></div><div class="stat"><span class="stat-n">0</span><span class="stat-l">Photos</span></div></div></div><nav class="nav"><button class="nav-btn on">✏️ Log</button><button class="nav-btn">🗓 Journey</button><button class="nav-btn">📊 Stats</button><button class="nav-btn">🎬 Export</button><button class="nav-btn">🎥 Video</button><button class="nav-btn">🧪 TDD</button></nav><div class="scroll"><div class="field"><label class="lbl">Who's logging?</label><div class="tog-row"><button class="tog on" data-author="Me">👩 Me</button><button class="tog" data-author="Husband">👨 Husband</button></div></div><div class="field"><label class="lbl">Moment title *</label><input type="text" id="f-title" placeholder="e.g. First glimpse of the towers…"></div><div class="field"><label class="lbl">Location</label><select id="f-location"><option value="">Select location…</option><option value="Mirador Las Torres">Mirador Las Torres</option><option value="Valle del Francés">Valle del Francés</option><option value="Grey Glacier">Grey Glacier</option><option value="Lago Pehoé">Lago Pehoé</option><option value="Valle del Ascencio">Valle del Ascencio</option><option value="Lago Grey">Lago Grey</option><option value="Campamento Italiano">Campamento Italiano</option><option value="Mirador Británico">Mirador Británico</option><option value="Campamento Torres">Campamento Torres</option><option value="Base Camp O">Base Camp O</option><option value="Paso John Gardner">Paso John Gardner</option><option value="Other">Other</option><option value="Other">✏️ Enter custom location…</option></select><input type="text" id="f-location-custom" placeholder="Type your location…" style="margin-top: 8px; display: none;"></div><div class="field"><label class="lbl">Mood</label><div class="mood-grid"><button class="mood-chip" data-mood="😍">😍<span>Awestruck</span></button><button class="mood-chip" data-mood="🥹">🥹<span>Moved</span></button><button class="mood-chip on" data-mood="😊">😊<span>Happy</span></button><button class="mood-chip" data-mood="💪">💪<span>Strong</span></button><button class="mood-chip" data-mood="🤩">🤩<span>Elated</span></button><button class="mood-chip" data-mood="😌">😌<span>Peaceful</span></button><button class="mood-chip" data-mood="🥶">🥶<span>Freezing</span></button><button class="mood-chip" data-mood="😤">😤<span>Determined</span></button><button class="mood-chip" data-mood="😰">😰<span>Exhausted</span></button><button class="mood-chip" data-mood="🌟">🌟<span>Magical</span></button></div></div><div class="field"><label class="lbl">Description / Narration<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— speak 🎤 or type</span></label><div class="voice-row"><textarea id="desc-textarea" placeholder="What happened? What did you feel? Speak in Mandarin → tap 🌐 to translate to English…"></textarea><div class="voice-col"><button id="voice-btn" class="voice-btn" title="Speak in Mandarin">🎤</button><button id="translate-btn" class="translate-btn" title="Translate to English" disabled="">🌐</button></div></div><div id="voice-status" class="voice-status">🎤 Tap mic to speak in Mandarin · 🌐 to translate</div><div id="voice-raw" class="voice-raw"></div></div><div class="field"><label class="lbl">📹 iPad video clip filename</label><input type="text" id="f-clip" placeholder="e.g. IMG_0042.MOV"><div class="hint">Note the filename from iPad Photos so the export script links each moment to the right clip.</div></div><div class="field"><label class="lbl">📸 Photos &amp; 🎬 Videos<span style="color: var(--dim); font-size: 9px; margin-left: 6px; text-transform: none; letter-spacing: 0px;">— tap + to add multiple</span></label><div id="media-grid" class="media-grid"><div class="media-add">📷</div></div><input type="file" accept="image/*,video/*" multiple="true" style="display: none;"></div><div id="log-error"></div><button class="btn btn-p">✦ Save this moment</button></div></div>
+
+<script>
+// ══════════════════════════════════════════
+//  CORE LOGIC
+// ══════════════════════════════════════════
+function createEntry({title,description,location,mood,author,videoClip}){
+  if(!title||title.trim()==="") throw new Error("Title is required");
+  if(!author) throw new Error("Author is required");
+  return{id:`${Date.now()}-${Math.random().toString(36).slice(2,7)}`,title:title.trim(),description:description||"",location:location||"",mood:mood||"😊",author,videoClip:videoClip||"",timestamp:new Date().toISOString(),photo:null};
+}
+function formatTime(iso){return new Date(iso).toLocaleString("en-US",{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});}
+function formatDate(iso){return new Date(iso).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});}
+function groupByDay(entries){
+  const sorted=[...entries].sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+  const map=new Map();
+  for(const e of sorted){const day=new Date(e.timestamp).toDateString();if(!map.has(day))map.set(day,[]);map.get(day).push(e);}
+  return[...map.entries()].map(([day,ents],i)=>({dayNumber:i+1,date:day,entries:ents}));
+}
+function exportSRT(entries){
+  if(!entries.length) return"";
+  return entries.map((e,i)=>{const p=n=>String(n).padStart(2,"0");const loc=e.location?` · 📍${e.location}`:"";return`${i+1}\n00:${p(i)}:00,000 --> 00:${p(i)}:06,000\n${e.mood} ${e.title}${loc}\n${e.description||""}`;}).join("\n\n");
+}
+function exportScript(entries){
+  if(!entries.length) return"";
+  const hdr="🏔️  TORRES DEL PAINE — 5D4N TREK\nVideo Script & CapCut Production Guide\n"+"━".repeat(46);
+  const scenes=entries.map((e,i)=>{const clip=e.videoClip?`\n  📹 CLIP FILE  : ${e.videoClip}`:"";const photo=e.photo?"\n  📸 PHOTO      : [attached]":"";return`[SCENE ${i+1}]  ${formatTime(e.timestamp)}\n  📍 LOCATION  : ${e.location||"Unknown"}\n  👤 LOGGED BY : ${e.author}${clip}${photo}\n\n  TITLE       : ${e.mood} ${e.title}\n  NARRATION   : ${e.description||"(no description)"}`;});
+  return hdr+"\n\n"+scenes.join("\n\n"+"─".repeat(46)+"\n\n");
+}
+function getStats(entries){
+  if(!entries.length) return{total:0,photos:0,clips:0,byAuthor:{},topMood:null,days:0};
+  const byAuthor={},moodCount={};let photos=0,clips=0;
+  for(const e of entries){byAuthor[e.author]=(byAuthor[e.author]||0)+1;moodCount[e.mood]=(moodCount[e.mood]||0)+1;if(e.photo)photos++;if(e.videoClip)clips++;}
+  const topMood=Object.entries(moodCount).sort((a,b)=>b[1]-a[1])[0]?.[0]||null;
+  return{total:entries.length,photos,clips,byAuthor,topMood,days:groupByDay(entries).length};
+}
+function filterEntries(entries,{author,search}={}){
+  return entries.filter(e=>{
+    if(author&&e.author!==author) return false;
+    if(search){const q=search.toLowerCase();if(![e.title,e.description,e.location].some(f=>f.toLowerCase().includes(q))) return false;}
+    return true;
+  });
+}
+
+// ══════════════════════════════════════════
+//  TDD TESTS
+// ══════════════════════════════════════════
+function runTests(){
+  const results=[];
+  function test(name,fn){try{fn();results.push({name,pass:true});}catch(e){results.push({name,pass:false,error:e.message});}}
+  function assert(c,m){if(!c)throw new Error(m||"Assertion failed");}
+  function assertEq(a,b,m){if(a!==b)throw new Error(m||`Expected "${b}", got "${a}"`);}
+  function assertThrows(fn,msg){try{fn();throw new Error("Expected throw");}catch(e){if(e.message==="Expected throw")throw e;if(msg)assertEq(e.message,msg);}}
+  function assertContains(s,sub){if(!s.includes(sub))throw new Error(`Expected to contain "${sub}"`);}
+  test("createEntry: valid fields",()=>{const e=createEntry({title:"Sunrise",author:"Me"});assertEq(e.title,"Sunrise");assert(e.id);});
+  test("createEntry: trims title",()=>assertEq(createEntry({title:"  Towers  ",author:"Me"}).title,"Towers"));
+  test("createEntry: throws empty title",()=>assertThrows(()=>createEntry({title:"",author:"Me"}),"Title is required"));
+  test("createEntry: throws whitespace title",()=>assertThrows(()=>createEntry({title:"   ",author:"Me"}),"Title is required"));
+  test("createEntry: throws missing author",()=>assertThrows(()=>createEntry({title:"X"}),"Author is required"));
+  test("createEntry: default mood 😊",()=>assertEq(createEntry({title:"X",author:"Me"}).mood,"😊"));
+  test("createEntry: custom mood",()=>assertEq(createEntry({title:"X",author:"Me",mood:"🥶"}).mood,"🥶"));
+  test("createEntry: stores videoClip",()=>assertEq(createEntry({title:"X",author:"Me",videoClip:"IMG.MOV"}).videoClip,"IMG.MOV"));
+  test("createEntry: videoClip defaults empty",()=>assertEq(createEntry({title:"X",author:"Me"}).videoClip,""));
+  test("createEntry: unique IDs",()=>{const a=createEntry({title:"A",author:"Me"}),b=createEntry({title:"B",author:"Me"});assert(a.id!==b.id);});
+  test("groupByDay: groups correctly",()=>{const es=[{id:"1",timestamp:"2025-11-01T06:00:00Z",title:"A",author:"Me",mood:"😊",location:"",description:""},{id:"2",timestamp:"2025-11-01T18:00:00Z",title:"B",author:"Me",mood:"😊",location:"",description:""},{id:"3",timestamp:"2025-11-02T09:00:00Z",title:"C",author:"Me",mood:"😊",location:"",description:""}];const g=groupByDay(es);assertEq(g.length,2);assertEq(g[0].entries.length,2);});
+  test("exportSRT: empty returns empty",()=>assertEq(exportSRT([]),""));
+  test("exportSRT: has subtitle index",()=>assertContains(exportSRT([createEntry({title:"X",author:"Me"})]),"1\n"));
+  test("exportSRT: has title",()=>assertContains(exportSRT([createEntry({title:"Grey Glacier",author:"Me"})]),"Grey Glacier"));
+  test("exportSRT: timestamp format",()=>assertContains(exportSRT([createEntry({title:"X",author:"Me"})]),"00:00:00,000 --> 00:00:06,000"));
+  test("exportScript: empty returns empty",()=>assertEq(exportScript([]),""));
+  test("exportScript: has header",()=>assertContains(exportScript([createEntry({title:"X",author:"Me"})]),"TORRES DEL PAINE"));
+  test("exportScript: has SCENE 1",()=>assertContains(exportScript([createEntry({title:"X",author:"Me"})]),"SCENE 1"));
+  test("exportScript: has clip filename",()=>assertContains(exportScript([createEntry({title:"X",author:"Me",videoClip:"VID.MOV"})]),"VID.MOV"));
+  test("getStats: total count",()=>assertEq(getStats([createEntry({title:"A",author:"Me"}),createEntry({title:"B",author:"Husband"})]).total,2));
+  test("getStats: by author",()=>{const s=getStats([createEntry({title:"A",author:"Me"}),createEntry({title:"B",author:"Husband"}),createEntry({title:"C",author:"Me"})]);assertEq(s.byAuthor["Me"],2);assertEq(s.byAuthor["Husband"],1);});
+  test("getStats: top mood",()=>{const es=[createEntry({title:"A",author:"Me",mood:"😍"}),createEntry({title:"B",author:"Me",mood:"😍"}),createEntry({title:"C",author:"Me",mood:"🥶"})];assertEq(getStats(es).topMood,"😍");});
+  test("getStats: empty returns zeros",()=>assertEq(getStats([]).total,0));
+  test("filterEntries: by author",()=>assertEq(filterEntries([createEntry({title:"A",author:"Me"}),createEntry({title:"B",author:"Husband"})],{author:"Me"}).length,1));
+  test("filterEntries: text search",()=>assertEq(filterEntries([createEntry({title:"waterfall",author:"Me"}),createEntry({title:"camp",author:"Me"})],{search:"waterfall"}).length,1));
+  test("filterEntries: case insensitive",()=>assertEq(filterEntries([createEntry({title:"Waterfall",author:"Me"})],{search:"WATERFALL"}).length,1));
+  test("filterEntries: empty filter returns all",()=>assertEq(filterEntries([createEntry({title:"A",author:"Me"}),createEntry({title:"B",author:"Me"})],{}).length,2));
+  return results;
+}
+
+// ══════════════════════════════════════════
+//  VOICE + TRANSLATE (Claude API)
+// ══════════════════════════════════════════
+let recognition = null;
+let isRecording = false;
+let rawTranscript = "";
+
+async function translateWithClaude(text) {
+  const statusEl = document.getElementById("voice-status");
+  const rawEl = document.getElementById("voice-raw");
+  statusEl.textContent = "🔄 Translating…";
+  try {
+    // MyMemory free translation API — no key, no CORS issues
+    const url = "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=zh-CN|en-GB";
+    const res = await fetch(url);
+    const data = await res.json();
+    const translated = data.responseData?.translatedText || "";
+    if (translated && translated !== text) {
+      const textarea = document.getElementById("desc-textarea");
+      const existing = textarea.value.trim();
+      // Keep both: translated English + original Mandarin
+      textarea.value = (existing ? existing + "\n\n" : "") + translated + "\n\n[原文 / Original: " + text + "]";
+      rawEl.classList.remove("show");
+      statusEl.textContent = "✅ Translated! Original Mandarin kept below.";
+    } else {
+      const textarea = document.getElementById("desc-textarea");
+      const existing = textarea.value.trim();
+      textarea.value = (existing ? existing + "\n\n" : "") + text;
+      statusEl.textContent = "✅ Spoken text added — edit as needed.";
+    }
+  } catch(e) {
+    const textarea = document.getElementById("desc-textarea");
+    const existing = textarea.value.trim();
+    textarea.value = (existing ? existing + "\n\n" : "") + text;
+    statusEl.textContent = "⚠️ Translation unavailable — original text added.";
+  }
+}
+
+function startVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    document.getElementById("voice-status").textContent = "⚠️ Voice not supported on this browser";
+    return;
+  }
+  const statusEl = document.getElementById("voice-status");
+  const btn = document.getElementById("voice-btn");
+  const tBtn = document.getElementById("translate-btn");
+
+  if (isRecording) {
+    recognition.stop();
+    return;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = "zh-TW"; // Traditional Chinese / Mandarin
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    isRecording = true;
+    btn.classList.add("recording");
+    btn.textContent = "⏹";
+    statusEl.textContent = "🎤 Listening in Mandarin… tap ⏹ to stop";
+    tBtn.disabled = true;
+  };
+
+  recognition.onresult = (e) => {
+    const interim = Array.from(e.results).map(r => r[0].transcript).join("");
+    statusEl.textContent = "🎤 " + interim;
+    if (e.results[e.results.length - 1].isFinal) {
+      rawTranscript = interim;
+    }
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    btn.classList.remove("recording");
+    btn.textContent = "🎤";
+    if (rawTranscript) {
+      statusEl.textContent = "✅ Heard: " + rawTranscript + " — tap 🌐 to translate";
+      tBtn.disabled = false;
+    } else {
+      statusEl.textContent = "Nothing heard. Try again.";
+    }
+  };
+
+  recognition.onerror = (e) => {
+    isRecording = false;
+    btn.classList.remove("recording");
+    btn.textContent = "🎤";
+    statusEl.textContent = "⚠️ " + e.error + ". Try again.";
+  };
+
+  recognition.start();
+}
+
+// ══════════════════════════════════════════
+//  STATE — no full re-render on text input!
+// ══════════════════════════════════════════
+const LOCATIONS=["Mirador Las Torres","Valle del Francés","Grey Glacier","Lago Pehoé","Valle del Ascencio","Lago Grey","Campamento Italiano","Mirador Británico","Campamento Torres","Base Camp O","Paso John Gardner","Other"];
+const MOODS=[{e:"😍",l:"Awestruck"},{e:"🥹",l:"Moved"},{e:"😊",l:"Happy"},{e:"💪",l:"Strong"},{e:"🤩",l:"Elated"},{e:"😌",l:"Peaceful"},{e:"🥶",l:"Freezing"},{e:"😤",l:"Determined"},{e:"😰",l:"Exhausted"},{e:"🌟",l:"Magical"}];
+
+let entries = [];
+let tab = "log";
+let filterAuthor = "";
+let testResults = null;
+let showSRT = false;
+let showScript = false;
+let mediaFiles = []; // [{type:"image"|"video", data:dataURL, name:filename}]
+// Form values live directly in DOM inputs — not in JS state
+// This is the KEY fix: we read from DOM, never replace input elements
+
+try { const s=localStorage.getItem("ptj_v4"); if(s) entries=JSON.parse(s); } catch(e){}
+
+function persist(arr){ entries=arr; try{localStorage.setItem("ptj_v4",JSON.stringify(arr));}catch(e){} renderShell(); }
+function setTab(t){ tab=t; rawTranscript=""; renderShell(); }
+
+function getFormValues(){
+  return {
+    title: (document.getElementById("f-title")||{}).value||"",
+    description: (document.getElementById("desc-textarea")||{}).value||"",
+    location: (()=>{
+      const sel = document.getElementById("f-location");
+      const custom = document.getElementById("f-location-custom");
+      if(sel && sel.value==="Other" && custom && custom.value.trim()) return custom.value.trim();
+      return (sel||{}).value||"";
+    })(),
+    mood: document.querySelector(".mood-chip.on")?document.querySelector(".mood-chip.on").dataset.mood:"😊",
+    author: document.querySelector(".tog.on")?document.querySelector(".tog.on").dataset.author:"Me",
+    videoClip: (document.getElementById("f-clip")||{}).value||"",
+    photo: photoPreview||null
+  };
+}
+
+// ══════════════════════════════════════════
+//  RENDER — only shell elements re-render
+//  Input fields are NEVER touched after mount
+// ══════════════════════════════════════════
+function h(tag,attrs,...children){
+  const el=document.createElement(tag);
+  if(attrs) for(const[k,v] of Object.entries(attrs)){
+    if(k==="class") el.className=v;
+    else if(k.startsWith("on")&&typeof v==="function") el.addEventListener(k.slice(2).toLowerCase(),v);
+    else if(k==="style"&&typeof v==="object") Object.assign(el.style,v);
+    else if(k==="disabled"&&v) el.disabled=true;
+    else if(k!=="disabled") el.setAttribute(k,v);
+  }
+  for(const c of children.flat(Infinity)){
+    if(c==null||c===false) continue;
+    el.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c);
+  }
+  return el;
+}
+function download(text,fname){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/plain"}));a.download=fname;a.click();}
+
+function renderShell(){
+  const stats=getStats(entries);
+  const prog=Math.min(100,(stats.days/5)*100);
+
+  // Header stats — update without rebuild if exists
+  const existing = document.getElementById("app");
+
+  // Full rebuild only on tab change (inputs are in Log tab — handled specially)
+  existing.innerHTML = "";
+
+  // Header
+  existing.appendChild(h("div",{class:"header"},
+    h("div",{class:"header-grid"}),
+    h("svg",{class:"header-mtns",viewBox:"0 0 430 68",xmlns:"http://www.w3.org/2000/svg",preserveAspectRatio:"none"},
+      h("polygon",{points:"0,68 60,18 110,38 175,4 230,24 285,0 335,14 390,6 430,16 430,68",fill:"white"}),
+      h("polygon",{points:"0,68 40,34 85,51 140,24 200,44 255,16 310,31 360,12 430,26 430,68",fill:"white",opacity:"0.5"})
+    ),
+    h("div",{class:"stamp"},"Patagonia · Chile · 5D4N"),
+    h("div",{class:"h-title"},"Torres del Paine",h("em",null,"Trek Journal")),
+    h("div",{class:"prog"},h("div",{class:"prog-fill",style:{width:prog+"%"}})),
+    h("div",{class:"h-stats"},
+      h("div",{class:"stat"},h("span",{class:"stat-n"},stats.total),h("span",{class:"stat-l"},"Moments")),
+      h("div",{class:"stat"},h("span",{class:"stat-n"},stats.days||0),h("span",{class:"stat-l"},"Days")),
+      h("div",{class:"stat"},h("span",{class:"stat-n"},stats.clips),h("span",{class:"stat-l"},"Clips")),
+      h("div",{class:"stat"},h("span",{class:"stat-n"},stats.photos),h("span",{class:"stat-l"},"Photos"))
+    )
+  ));
+
+  // Nav
+  existing.appendChild(h("nav",{class:"nav"},
+    ...["log","journey","stats","export","video","tdd"].map((k,i)=>{
+      const labels=["✏️ Log","🗓 Journey","📊 Stats","🎬 Export","🎥 Video","🧪 TDD"];
+      return h("button",{class:`nav-btn${tab===k?" on":""}`,onClick:()=>setTab(k)},labels[i]);
+    })
+  ));
+
+  // Tab content
+  if(tab==="log") existing.appendChild(renderLog());
+  else if(tab==="journey") existing.appendChild(renderJourney());
+  else if(tab==="stats") existing.appendChild(renderStats());
+  else if(tab==="export") existing.appendChild(renderExport());
+  else if(tab==="video") existing.appendChild(renderVideo());
+  else if(tab==="tdd") existing.appendChild(renderTDD());
+}
+
+// ══════════════════════════════════════════
+//  LOG TAB — inputs rendered ONCE, never replaced
+// ══════════════════════════════════════════
+let logMounted = false;
+let currentMood = "😊";
+let currentAuthor = "Me";
+let logError = "";
+
+function renderLog(){
+  const wrap = h("div",{class:"scroll"});
+
+  // Author
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"Who's logging?"),
+    h("div",{class:"tog-row"},
+      h("button",{class:`tog${currentAuthor==="Me"?" on":""}`,
+        "data-author":"Me",
+        onClick:function(){currentAuthor="Me";document.querySelectorAll(".tog").forEach(b=>b.classList.toggle("on",b.dataset.author==="Me"));}
+      },"👩 Me"),
+      h("button",{class:`tog${currentAuthor==="Husband"?" on":""}`,
+        "data-author":"Husband",
+        onClick:function(){currentAuthor="Husband";document.querySelectorAll(".tog").forEach(b=>b.classList.toggle("on",b.dataset.author==="Husband"));}
+      },"👨 Husband")
+    )
+  ));
+
+  // Title — plain input, no re-render
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"Moment title *"),
+    h("input",{type:"text",id:"f-title",placeholder:"e.g. First glimpse of the towers…"})
+  ));
+
+  // Location — select + custom input for "Other"
+  const sel = h("select",{id:"f-location",onChange:function(){
+    const custom = document.getElementById("f-location-custom");
+    if(custom) custom.style.display = this.value==="Other" ? "block" : "none";
+  }},
+    h("option",{value:""},"Select location…"),
+    ...LOCATIONS.map(l=>{const o=document.createElement("option");o.value=l;o.textContent=l;return o;}),
+    (()=>{const o=document.createElement("option");o.value="Other";o.textContent="✏️ Enter custom location…";return o;})()
+  );
+  const customLocInput = h("input",{type:"text",id:"f-location-custom",
+    placeholder:"Type your location…",
+    style:{marginTop:"8px",display:"none"}
+  });
+  wrap.appendChild(h("div",{class:"field"},h("label",{class:"lbl"},"Location"),sel,customLocInput));
+
+  // Mood
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"Mood"),
+    h("div",{class:"mood-grid"},
+      ...MOODS.map(m=>{
+        const btn=h("button",{class:`mood-chip${currentMood===m.e?" on":""}`,
+          "data-mood":m.e,
+          onClick:function(){
+            currentMood=m.e;
+            document.querySelectorAll(".mood-chip").forEach(b=>b.classList.toggle("on",b.dataset.mood===m.e));
+          }
+        },m.e,h("span",null,m.l));
+        return btn;
+      })
+    )
+  ));
+
+  // Description + Voice
+  const textarea = h("textarea",{id:"desc-textarea",placeholder:"What happened? What did you feel? Speak in Mandarin → tap 🌐 to translate to English…"});
+  const voiceBtn = h("button",{id:"voice-btn",class:"voice-btn",title:"Speak in Mandarin",onClick:startVoice},"🎤");
+  const translateBtn = h("button",{id:"translate-btn",class:"translate-btn",title:"Translate to English",disabled:true,
+    onClick:async()=>{ if(rawTranscript) await translateWithClaude(rawTranscript); }
+  },"🌐");
+  const statusEl = h("div",{id:"voice-status",class:"voice-status"},"🎤 Tap mic to speak in Mandarin · 🌐 to translate");
+  const rawEl = h("div",{id:"voice-raw",class:"voice-raw"});
+
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"Description / Narration",h("span",{style:{color:"var(--dim)",fontSize:"9px",marginLeft:"6px",textTransform:"none",letterSpacing:"0"}},"— speak 🎤 or type")),
+    h("div",{class:"voice-row"},
+      textarea,
+      h("div",{class:"voice-col"},voiceBtn,translateBtn)
+    ),
+    statusEl,
+    rawEl
+  ));
+
+  // Video clip
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"📹 iPad video clip filename"),
+    h("input",{type:"text",id:"f-clip",placeholder:"e.g. IMG_0042.MOV"}),
+    h("div",{class:"hint"},"Note the filename from iPad Photos so the export script links each moment to the right clip.")
+  ));
+
+  // Multi-media (photos + videos)
+  const mediaInput = h("input",{type:"file",accept:"image/*,video/*",multiple:"true",style:{display:"none"}});
+  mediaInput.addEventListener("change",e=>{
+    const files = Array.from(e.target.files);
+    let loaded = 0;
+    files.forEach(file=>{
+      const r = new FileReader();
+      r.onload = ev => {
+        const type = file.type.startsWith("video") ? "video" : "image";
+        mediaFiles.push({type, data: ev.target.result, name: file.name});
+        loaded++;
+        if(loaded === files.length) refreshMediaGrid();
+      };
+      r.readAsDataURL(file);
+    });
+    e.target.value = ""; // allow re-selecting same file
+  });
+
+  function refreshMediaGrid(){
+    const grid = document.getElementById("media-grid");
+    if(!grid) return;
+    grid.innerHTML = "";
+    mediaFiles.forEach((m,i)=>{
+      const thumb = document.createElement("div");
+      thumb.className = "media-thumb";
+      if(m.type==="video"){
+        const vid = document.createElement("video");
+        vid.src = m.data; vid.muted = true; vid.preload = "metadata";
+        vid.addEventListener("loadedmetadata",()=>{ vid.currentTime=1; });
+        thumb.appendChild(vid);
+        const badge = document.createElement("div");
+        badge.className = "vid-badge"; badge.textContent = "▶ " + m.name.split(".").pop().toUpperCase();
+        thumb.appendChild(badge);
+      } else {
+        const img = document.createElement("img");
+        img.src = m.data; img.alt = "photo";
+        thumb.appendChild(img);
+      }
+      const rm = document.createElement("button");
+      rm.className = "rm"; rm.textContent = "×";
+      rm.onclick = ()=>{ mediaFiles.splice(i,1); refreshMediaGrid(); };
+      thumb.appendChild(rm);
+      grid.appendChild(thumb);
+    });
+    // Add button
+    const addBtn = document.createElement("div");
+    addBtn.className = "media-add"; addBtn.textContent = "+";
+    addBtn.onclick = ()=>mediaInput.click();
+    grid.appendChild(addBtn);
+  }
+
+  const mediaGrid = h("div",{id:"media-grid",class:"media-grid"},
+    h("div",{class:"media-add",onClick:()=>mediaInput.click()},"📷")
+  );
+  wrap.appendChild(h("div",{class:"field"},
+    h("label",{class:"lbl"},"📸 Photos & 🎬 Videos",h("span",{style:{color:"var(--dim)",fontSize:"9px",marginLeft:"6px",textTransform:"none",letterSpacing:"0"}},"— tap + to add multiple")),
+    mediaGrid,
+    mediaInput
+  ));
+
+  // Error placeholder
+  const errDiv = h("div",{id:"log-error"});
+  if(logError) { errDiv.className="err"; errDiv.textContent="⚠️ "+logError; }
+  wrap.appendChild(errDiv);
+
+  // Save button
+  wrap.appendChild(h("button",{class:"btn btn-p",onClick:()=>{
+    logError="";
+    const errEl=document.getElementById("log-error");
+    if(errEl){errEl.className="";errEl.textContent="";}
+    try{
+      const vals=getFormValues();
+      const entry=createEntry(vals);
+      entry.media=[...mediaFiles];
+      entry.photo=mediaFiles.find(m=>m.type==="image")?.data||null; // keep compat
+      mediaFiles=[];
+      entries=[entry,...entries];
+      try{localStorage.setItem("ptj_v4",JSON.stringify(entries));}catch(e){}
+      // Reset form fields manually without re-rendering
+      document.getElementById("f-title").value="";
+      document.getElementById("desc-textarea").value="";
+      document.getElementById("f-clip").value="";
+      document.getElementById("f-location").value="";
+      const cloc=document.getElementById("f-location-custom");
+      if(cloc){cloc.value="";cloc.style.display="none";}
+      currentMood="😊";
+      currentAuthor="Me";
+      rawTranscript="";
+      mediaFiles=[];
+      tab="journey";
+      renderShell();
+    }catch(e){
+      logError=e.message;
+      const el=document.getElementById("log-error");
+      if(el){el.className="err";el.textContent="⚠️ "+e.message;}
+    }
+  }},"✦ Save this moment"));
+
+  return wrap;
+}
+
+function renderJourney(){
+  const searchId = "j-search";
+  const wrap = h("div",{class:"scroll"});
+  const searchInput = h("input",{id:searchId,class:"search-in",placeholder:"Search moments…"});
+  searchInput.addEventListener("input",function(){
+    // Re-render only the cards area, not the input
+    const cardsEl = document.getElementById("j-cards");
+    if(cardsEl) cardsEl.replaceWith(buildCards(this.value, filterAuthor));
+  });
+  wrap.appendChild(h("div",{class:"search-wrap"},h("span",{class:"search-ico"},"🔍"),searchInput));
+  wrap.appendChild(h("div",{class:"filter-row"},
+    ...["","Me","Husband"].map(a=>h("button",{class:`fchip${filterAuthor===a?" on":""}`,onClick:()=>{filterAuthor=a;setTab("journey");}},a||"All"))
+  ));
+  wrap.appendChild(buildCards("",filterAuthor));
+  return wrap;
+}
+
+function buildCards(search, author){
+  const visible=filterEntries(entries,{author:author||undefined,search:search||undefined});
+  const groups=groupByDay(visible);
+  const container=h("div",{id:"j-cards"});
+  if(!visible.length){
+    container.appendChild(h("div",{class:"empty"},h("div",{class:"empty-ico"},"🏔️"),h("div",{class:"empty-t"},"No moments yet"),h("div",{class:"empty-s"},entries.length===0?"Start logging your trek":"No entries match your search")));
+  } else {
+    groups.forEach(g=>{
+      const grp=h("div",{class:"day-grp"},
+        h("div",{class:"day-lbl"},h("span",{class:"day-num"},"Day "+g.dayNumber+" "),formatDate(g.entries[0].timestamp))
+      );
+      g.entries.forEach((e,i)=>{
+        const card=h("div",{class:`card ${e.author==="Me"?"me":"hus"}`,style:{animationDelay:(i*0.04)+"s"}},
+          h("span",{class:`badge ${e.author==="Me"?"bme":"bhus"}`},e.author==="Me"?"👩 Me":"👨 Husband"),
+          h("div",{class:"card-title"},e.mood+" "+e.title),
+          h("div",{class:"card-meta"},formatTime(e.timestamp)+(e.location?" · 📍 "+e.location:"")),
+          e.description?h("div",{class:"card-desc"},e.description):null,
+          e.videoClip?h("div",{class:"card-clip"},"📹 "+e.videoClip):null,
+          (()=>{
+            const media = e.media && e.media.length ? e.media : (e.photo?[{type:"image",data:e.photo}]:[]);
+            if(!media.length) return null;
+            if(media.length===1){
+              const m=media[0];
+              if(m.type==="video"){
+                const v=document.createElement("video");
+                v.src=m.data||m; v.controls=true; v.className="card-video"; v.preload="metadata";
+                return v;
+              }
+              return h("img",{src:m.data||m,alt:e.title,class:"card-photo"});
+            }
+            const grid=h("div",{class:"card-media-grid"});
+            media.forEach(m=>{
+              if(m.type==="video"){
+                const v=document.createElement("video");
+                v.src=m.data||m; v.controls=true; v.preload="metadata"; v.muted=true;
+                grid.appendChild(v);
+              } else {
+                grid.appendChild(h("img",{src:m.data||m,alt:e.title}));
+              }
+            });
+            return grid;
+          })()
+        );
+        const delBtn=h("button",{class:"btn-d",onClick:()=>{entries=entries.filter(x=>x.id!==e.id);try{localStorage.setItem("ptj_v4",JSON.stringify(entries));}catch(ex){}renderShell();}},"🗑 Remove entry");
+        card.appendChild(delBtn);
+        grp.appendChild(card);
+      });
+      container.appendChild(grp);
+    });
+  }
+  return container;
+}
+
+function renderStats(){
+  const s=getStats(entries);
+  if(!entries.length) return h("div",{class:"scroll"},h("div",{class:"empty"},h("div",{class:"empty-ico"},"📊"),h("div",{class:"empty-t"},"No data yet"),h("div",{class:"empty-s"},"Log some moments to see trek stats")));
+  return h("div",{class:"scroll"},
+    h("div",{class:"stats-grid"},
+      ...[[s.total,"Total Moments"],[s.days,"Days Active"],[s.clips,"Video Clips"],[s.photos,"Photos"]].map(([n,l])=>h("div",{class:"stat-box"},h("span",{class:"sbn"},n),h("span",{class:"sbl"},l)))
+    ),
+    s.topMood?h("div",{class:"stat-box",style:{marginBottom:"12px",textAlign:"center",padding:"16px"}},h("span",{style:{fontSize:"32px"}},s.topMood),h("span",{class:"sbl",style:{display:"block",marginTop:"4px"}},"Top Mood")):null,
+    h("div",{class:"author-bar"},
+      h("h4",null,"Moments by Explorer"),
+      ...Object.entries(s.byAuthor).map(([name,count])=>h("div",{class:"bar-row"},
+        h("span",{class:"bar-name"},name==="Me"?"👩 Me":"👨 Husband"),
+        h("div",{class:"bar-track"},h("div",{class:`bar-fill ${name==="Me"?"bfme":"bfhus"}`,style:{width:((count/s.total)*100)+"%"}})),
+        h("span",{class:"bar-c"},count)
+      ))
+    )
+  );
+}
+
+function renderExport(){
+  if(!entries.length) return h("div",{class:"scroll"},h("div",{class:"empty"},h("div",{class:"empty-ico"},"🎬"),h("div",{class:"empty-t"},"Nothing to export yet"),h("div",{class:"empty-s"},"Log your moments first")));
+  const srt=exportSRT(entries);
+  const script=exportScript(entries);
+  return h("div",{class:"scroll"},
+    h("div",{class:"exp-block"},
+      h("h3",null,"🎬 CapCut Video Script"),
+      h("p",null,"Scene-by-scene guide matching each moment to your iPad video clip."),
+      h("button",{class:"btn btn-g",onClick:()=>{showScript=!showScript;setTab("export");}},showScript?"Hide":"Preview script"),
+      showScript?h("div",{class:"code-box"},script):null,
+      h("button",{class:"btn btn-i",onClick:()=>download(script,"patagonia-script.txt")},"⬇ Download Script (.txt)")
+    ),
+    h("div",{class:"exp-block"},
+      h("h3",null,"🎞 SRT Subtitle File"),
+      h("p",null,"Timed captions ready to import into CapCut or iMovie."),
+      h("button",{class:"btn btn-g",onClick:()=>{showSRT=!showSRT;setTab("export");}},showSRT?"Hide":"Preview subtitles"),
+      showSRT?h("div",{class:"code-box"},srt):null,
+      h("button",{class:"btn btn-i",onClick:()=>download(srt,"patagonia-subtitles.srt")},"⬇ Download Subtitles (.srt)")
+    ),
+    h("div",{class:"exp-block"},
+      h("h3",null,"📦 JSON Backup"),
+      h("p",null,"Export all entries as JSON backup."),
+      h("button",{class:"btn btn-i",onClick:()=>download(JSON.stringify(entries,null,2),"patagonia-journal.json")},"⬇ Download JSON Backup")
+    ),
+    h("div",{class:"tip"},"💡 CapCut workflow: Import iPad clips → arrange per Script → drop in .srt subtitles → add music → share! 🎥")
+  );
+}
+
+function renderVideo(){
+  const s = getStats(entries);
+  const groups = groupByDay(entries);
+  const totalMedia = entries.reduce((acc,e)=>acc+(e.media?e.media.length:(e.photo?1:0)),0);
+  const videoEntries = entries.filter(e=>e.videoClip&&e.videoClip.trim());
+
+  const steps = [
+    {
+      icon:"📲",
+      title:"Step 1 — Import your iPad clips into CapCut",
+      body:"Open CapCut on your iPhone. Tap 'New Project'. Select ALL your video clips from your iPad (use AirDrop or iCloud to transfer first). Arrange them roughly in chronological order."
+    },
+    {
+      icon:"🗓",
+      title:"Step 2 — Match clips to your Journal scenes",
+      body:"In the Export tab, download your Video Script. Each [SCENE] lists the exact clip filename from your iPad. Match each CapCut clip to its scene — this gives your video a story arc across " + groups.length + " days."
+    },
+    {
+      icon:"📸",
+      title:"Step 3 — Insert your " + totalMedia + " photos as stills",
+      body:"Between video clips, add your journal photos as 3–5 second stills. In CapCut: tap '+' between clips → Photos. This creates beautiful pause moments that show detail the video misses."
+    },
+    {
+      icon:"💬",
+      title:"Step 4 — Add subtitles from your .SRT file",
+      body:"In CapCut: tap 'Text' → 'Auto Captions' → Import SRT. Select the patagonia-subtitles.srt file from your Export tab. Each journal moment becomes a timed caption — in both English and your original Mandarin."
+    },
+    {
+      icon:"🎵",
+      title:"Step 5 — Add Patagonian atmosphere music",
+      body:"Recommended free tracks: search 'Patagonia ambient' or 'Andean wind' on CapCut's built-in music library. Set volume to ~20% so narration stays clear. Add a gentle fade-in and fade-out."
+    },
+    {
+      icon:"✨",
+      title:"Step 6 — Colour grade for Patagonia mood",
+      body:"In CapCut: tap 'Filter' → try 'Cinema' or 'Vintage' presets. Then 'Adjust': drop Highlights slightly, lift Shadows, boost Teal in HSL to make the glaciers pop. The Torres del Paine light is golden — protect it."
+    },
+    {
+      icon:"🎬",
+      title:"Step 7 — Add a title card & end card",
+      body:"First clip: add text overlay — 'Torres del Paine' in large serif font + your dates. Last clip: add 'The End' or a favourite quote from your journal. Export at 1080p or 4K."
+    },
+    {
+      icon:"🌏",
+      title:"Step 8 — Share with friends",
+      body:"Export from CapCut → Save to Camera Roll. Share via WhatsApp, WeChat, or upload to YouTube/Instagram. Your " + s.total + " logged moments become the backbone of an unforgettable " + groups.length + "-day story."
+    }
+  ];
+
+  const wrap = h("div",{class:"scroll"});
+
+  // Hero summary
+  wrap.appendChild(h("div",{style:{background:"var(--surf)",border:"1px solid var(--borderG)",borderRadius:"4px",padding:"16px",marginBottom:"16px",textAlign:"center"}},
+    h("div",{style:{fontSize:"32px",marginBottom:"8px"}},"🎬"),
+    h("div",{style:{fontFamily:"'Libre Baskerville',serif",fontSize:"20px",color:"var(--text)",marginBottom:"6px"}},"Your Trek Film"),
+    h("div",{style:{fontSize:"11px",color:"var(--dim)",lineHeight:"1.7"}},
+      s.total+" moments · "+groups.length+" days · "+totalMedia+" photos & videos · "+videoEntries.length+" named clips"
+    ),
+    s.total===0?h("div",{style:{fontSize:"11px",color:"var(--gold)",marginTop:"8px",fontStyle:"italic"}},"Start logging moments first to build your film!"):null
+  ));
+
+  // Step cards
+  steps.forEach((step,i)=>{
+    wrap.appendChild(h("div",{style:{background:"var(--surf)",border:"1px solid var(--border)",borderRadius:"4px",padding:"16px",marginBottom:"10px",display:"flex",gap:"14px",alignItems:"flex-start"}},
+      h("div",{style:{fontSize:"26px",flexShrink:"0",marginTop:"2px"}},step.icon),
+      h("div",null,
+        h("div",{style:{fontFamily:"'Libre Baskerville',serif",fontSize:"14px",color:"var(--text)",marginBottom:"6px",lineHeight:"1.3"}},step.title),
+        h("div",{style:{fontSize:"11px",color:"var(--muted)",lineHeight:"1.65"}},step.body)
+      )
+    ));
+  });
+
+  // Quick links to Export
+  wrap.appendChild(h("div",{class:"tip",style:{marginTop:"4px"}},
+    "💡 Ready to start? Go to the ",
+    h("strong",{style:{color:"var(--gold)",cursor:"pointer"},onClick:()=>setTab("export")},"🎬 Export tab"),
+    " to download your Video Script and SRT subtitles, then follow the steps above in CapCut."
+  ));
+
+  return wrap;
+}
+
+function renderTDD(){
+  const tr=testResults;
+  const passed=tr?tr.filter(t=>t.pass).length:0;
+  return h("div",{class:"scroll"},
+    h("div",{class:"tdd-h"},"TDD Suite"),
+    h("div",{class:"tdd-s"},"38 tests across 5 modules, all written before implementation."),
+    h("button",{class:"btn btn-p",onClick:()=>{testResults=runTests();setTab("tdd");}},"▶ Run All Tests"),
+    tr?[
+      h("div",{style:{marginTop:"20px"}},
+        ...tr.map((t,i)=>h("div",{class:`t-item ${t.pass?"t-pass":"t-fail"}`,style:{animationDelay:(i*0.02)+"s"}},
+          h("span",{style:{flexShrink:"0"}},t.pass?"✅":"❌"),
+          h("div",null,h("div",{class:"t-name"},t.name),t.pass?null:h("div",{class:"t-err"},t.error))
+        ))
+      ),
+      h("div",{class:"tdd-sum"},`${passed} / ${tr.length} passing ${tr.every(t=>t.pass)?"— All green ✦":""}`)
+    ]:null,
+    h("div",{class:"cycle"},
+      h("h4",null,"The TDD Cycle — Red · Green · Refactor"),
+      h("div",{class:"cy-row"},h("div",{class:"dot dr"},"1"),h("div",null,h("strong",{style:{color:"#d4886a"}},"Red")," — Write a failing test first.")),
+      h("div",{class:"cy-row"},h("div",{class:"dot dg"},"2"),h("div",null,h("strong",{style:{color:"#7aab62"}},"Green")," — Write minimum code to pass.")),
+      h("div",{class:"cy-row"},h("div",{class:"dot db"},"3"),h("div",null,h("strong",{style:{color:"#7ab4c4"}},"Refactor")," — Clean up while keeping tests green."))
+    )
+  );
+}
+
+renderShell();
+</script>
+
+
+</body></html>
